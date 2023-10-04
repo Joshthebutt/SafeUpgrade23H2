@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~  Created by Alfonso Leon on 10/6/22, 10:25 AM
+  ~    alfonso@popdigitaldesign.com/aleon@schrockinteractive.com
+  ~     Last modified 10/6/22, 10:25 AM
+  ~     Copyright (c) 2022.
+  ~     All rights reserved.
+  -->
+
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
+    <channel>
+        <title>Safe Upgrade Installer</title>
+        <description>Most recent updates to Safe Upgrade Installer</description>
+        <language>en</language>
+        <item>
+            <title>Version 1.1.0</title>
+            <sparkle:releaseNotesLink>
+                https://schrockinnovations.com/release_notes
+            </sparkle:releaseNotesLink>
+            <pubDate>Tue, 04 Oct 2022 12:00:00 +0800</pubDate>
+            <enclosure url="https://schrockinnovations.com/downloads/safeupgradetest.exe"
+                sparkle:dsaSignature="MEYCIQCETZeIe9E3L1iLeXp1PfB0zhdmn+Gka+lSdqFjEYvbpgIhALxIkqaxqWhycB7hG96xgodoRkaUYENVoKZSRrlRBxrG"
+                sparkle:version="2.0.2"
+                sparkle:os="windows"
+                length="0"
+                type="application/octet-stream" />
+        </item>
+    </channel>
+</rss>

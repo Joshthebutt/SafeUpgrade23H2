@@ -1,0 +1,8 @@
+app_id: 538cd1dd03aaee91a663a483ee54c36c
+publisher: LeanFlutter
+publisher_url: https://github.com/leanflutter/flutter_distributor
+display_name: Hello
+create_desktop_icon: false
+install_dir_name: HELLO-WORLD
+locales:
+    - en
