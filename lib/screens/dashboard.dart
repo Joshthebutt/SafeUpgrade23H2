@@ -62,7 +62,7 @@ class _DashboardState extends State<Dashboard> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title:  Text('Welcombe Back '+widget.settings.firstName),
+        title:  Text('Welcome Back '+widget.settings.firstName),
           flexibleSpace: Container(child: MoveWindow()),
           actions: [
             MinimizeWindowButton(colors: buttonColors),

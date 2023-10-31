@@ -8,6 +8,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   desktop_window
   permission_handler_windows
   url_launcher_windows
+  windows_single_instance
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST

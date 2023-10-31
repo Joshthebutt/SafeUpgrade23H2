@@ -19,8 +19,8 @@ class CreateAgreement extends StatelessWidget {
   CreateAgreement(this._settings, this._hasAgree, this._agreeOrNot);
 
   String textPdf() {
-    return "This program is designed safely install the Windows ${_settings.machine['majorVersion']} "
-        "(${_settings.updateName})  on your PC. "
+    return "This program is designed safely install the Windows 11 "
+        "23H2  on your PC. "
         "\n\n"
         "You are entitled to a 30-day warranty on the work this program completes.  If your upgrade fails "
         "to install or your computer experiences  issues, please contact one of our Service Centers. "

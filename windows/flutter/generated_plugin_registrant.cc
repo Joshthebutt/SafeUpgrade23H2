@@ -11,6 +11,7 @@
 #include <desktop_window/desktop_window_plugin.h>
 #include <permission_handler_windows/permission_handler_windows_plugin.h>
 #include <url_launcher_windows/url_launcher_windows.h>
+#include <windows_single_instance/windows_single_instance_plugin.h>
 
 void RegisterPlugins(flutter::PluginRegistry* registry) {
   AutoUpdaterPluginRegisterWithRegistrar(
@@ -23,4 +24,6 @@ void RegisterPlugins(flutter::PluginRegistry* registry) {
       registry->GetRegistrarForPlugin("PermissionHandlerWindowsPlugin"));
   UrlLauncherWindowsRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("UrlLauncherWindows"));
+  WindowsSingleInstancePluginRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("WindowsSingleInstancePlugin"));
 }

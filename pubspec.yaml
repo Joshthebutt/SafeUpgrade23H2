@@ -24,6 +24,8 @@ dependencies:
   permission_handler: ^11.0.0
   process_run: ^0.13.1
   universal_disk_space: ^0.2.3
+  msix: ^3.16.4
+  windows_single_instance: ^1.0.0
 
 
 
@@ -52,3 +54,10 @@ flutter:
    - assets/lottie/question-animation.json
 
 
+msix_config:
+  display_name: Safe Upgrade 23h2
+  publisher_display_name: Schrock Innovations Inc.
+  identity_name: company.suite.flutterapp
+  msix_version: 1.0.0.0
+  logo_path: C:\Users\Joshua\Desktop\Schrock-Innovations-Glossy-RGB-1.png
+  capabilities: internetClient, location, microphone, webcam

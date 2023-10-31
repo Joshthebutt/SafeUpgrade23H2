@@ -8,6 +8,7 @@
 
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:process_run/process_run.dart';
 import 'package:safe_upgrade/widgets/hardDriveInfo.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../models/settings.dart';
@@ -84,21 +85,6 @@ class _DashboardLayoutState extends State<DashboardLayout> {
   }
 
   downloadFile(String url, String file){
-    // var x = FileDownloaderProvider();
-    // x
-    //     .downloadFile("https://schrockinnovations.com/downloads/OLD/",
-    //     "test.zip", progressPercentage)
-    //     .then((onValue) {
-    //   setState(() {
-    //     _zipFilePath = onValue;
-    //     hashValidation();
-    //   });
-    // });
-    // setState(() {
-    //   _isDownloading = true;
-    // });
-    //
-
     var progress  = 1;
     var x = FileDownloaderProvider();
     print(url);
@@ -108,11 +94,14 @@ class _DashboardLayoutState extends State<DashboardLayout> {
         progress)
         .then((fileWhereDownloaded) {
       print(fileWhereDownloaded);
+      installFile(fileWhereDownloaded);
       return fileWhereDownloaded;
+
     });
   }
-  installFile(){
-
+  installFile(String run){
+var shell=Shell();
+shell.run(run);
   }
 
   Future<String> getMainDriveHealth() async {
@@ -213,6 +202,7 @@ class _DashboardLayoutState extends State<DashboardLayout> {
   /*  EXECUTE FILE  */
   executeFile(path) {
     var xx = DownloadExecuteInstaller();
+    // xx.executefile(path, 'safeupgrade.exe').then((response) {
     xx.executefile(path, 'safeupgrade.exe').then((response) {
       if (response is List<ProcessResult>) {
         for (final e in response) {
@@ -254,8 +244,10 @@ class _DashboardLayoutState extends State<DashboardLayout> {
     _zipFilePath = "";
     var x = FileDownloaderProvider();
     x
-        .downloadFile("https://schrockinnovations.com/downloads/OLD/",
-        "test.zip", progressPercentage)
+        // .downloadFile("https://schrockinnovations.com/downloads/OLD/",
+        // "test.zip", progressPercentage).
+        .downloadFile("https://safeupgrade.s3.us-east-2.amazonaws.com/",
+        "Windows64.zip", progressPercentage)
         .then((onValue) {
       setState(() {
         _zipFilePath = onValue;
@@ -322,6 +314,7 @@ class _DashboardLayoutState extends State<DashboardLayout> {
                         da_button,
                             (){
                           downloadFile(da_link['url'],da_link['file']);
+
                         }
                     ),
                   ),
@@ -340,7 +333,7 @@ class _DashboardLayoutState extends State<DashboardLayout> {
                 child: Padding(
                   padding: EdgeInsets.all(10.0),
                   child:
-                  Text("@2022 - All rights reserved, Schrock Innovations "),
+                  Text("@2023 - All rights reserved, Schrock Innovations "),
                 )),
             const VerticalDivider(
               color: Colors.blueAccent,

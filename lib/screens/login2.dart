@@ -126,8 +126,8 @@ class Login2 extends StatelessWidget {
                       onRecoverPassword: _recoverPassword,
                       navigateBackAfterRecovery: true,
                       scrollable: false,
-                      savedEmail:'test2q@aol.com',
-                      savedPassword:'Omaha@123',
+                      savedEmail:'',
+                      savedPassword:'',
 
                       messages: LoginMessages(
                           userHint: "Email/Username",

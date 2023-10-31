@@ -36,14 +36,14 @@ const String da_desc    = "We strongly recommend you install Drive Adviser and "
     "allow it to test your hard drive.  You can always remove it after the installation "
     "if you do not wish to keep it. ";
 const String da_button    = "Download For Free";
-const Map<dynamic,dynamic> da_link    = {'url': "https://driveadviser.com/download/", 'file':"driveadviser.msi"};
+const Map<dynamic,dynamic> da_link    = {'url': "https:\\\\driveadviser.com\\download\\", 'file':"driveadviser.msi"};
 
 /*Sophos*/
 const String sophos_name = 'Sophos';
 const String sophos_realPath = 'C://Program Files//Sophos//Sophos UI//Sophos UI.exe';
 const String sophos_logo    = "https://cdn.schrockinnovations.com/wp-content/uploads/2021/10/26151304/sophos_good-e1635280022911.jpg";
 const String sophos_desc    = "Your computer is not as secure as it could be.  "
-    "You can still install the Windows 10/11, but if the update fails due to a virus, "
+    "You can still install the Windows 11, but if the update fails due to a virus, "
     "you will not be covered by our warranty.";
 const String sophos_button    = "Purchase Now ";
 const String sophos_link    = "https://schrockinnovations.com/product/sophos-endpoint-protection/";

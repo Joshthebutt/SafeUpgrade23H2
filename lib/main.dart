@@ -1,11 +1,8 @@
 import 'dart:io' show Platform, exit;
-import 'dart:convert';
-
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_updater/auto_updater.dart';
-import 'package:desktop_window/desktop_window.dart';
-
+import 'package:process_run/process_run.dart';
 import './models/settings.dart';
 import './models/api.dart';
 import './models/constants.dart';
@@ -14,13 +11,29 @@ import './models/download/download_provider.dart';
 import './screens/fail/failSettings.dart';
 import './screens/login2.dart';
 import 'widgets/LottieAndMessage.dart';
+import 'package:windows_single_instance/windows_single_instance.dart';
 
-void main() async {
+
+void main(List<String> args) async {
+  var shell = Shell();
+  try {
+    await shell.run('''net session''');
+  } catch (e) {
+    await shell.run(
+        '''powershell start shell:AppsFolder\\safeupgrade_qscdvaxdyzxba!safeupgrade -verb runAs''');
+    exit(0);
+  }
   WidgetsFlutterBinding.ensureInitialized();
+  WindowsSingleInstance.ensureSingleInstance(args, "instance_checker",
+      onSecondWindow: (args) {
+        print(args);
+      });
   String feedURL = 'https://schrockinnovations.com/downloads/appcast.xml';
   await autoUpdater.setFeedURL(feedURL);
   await autoUpdater.checkForUpdates(inBackground: true); //{inBackground: true}
   // await autoUpdater.setScheduledCheckInterval(3600);
+
+
   runApp(MyApp());
 
   doWhenWindowReady(() {
