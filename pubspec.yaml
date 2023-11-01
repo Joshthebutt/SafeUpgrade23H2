@@ -54,10 +54,25 @@ flutter:
    - assets/lottie/question-animation.json
 
 
+#msix_config:
+#  display_name: Safe Upgrade 23h2
+#  publisher_display_name: Schrock Innovations Inc.
+#  identity_name: company.suite.flutterapp
+#  msix_version: 1.0.0.0
+#  logo_path: C:\Users\code signer\Desktop\Schrock-Innovations-Glossy-RGB-1.png
+#  capabilities: internetClient, location, microphone, webcam
+
 msix_config:
-  display_name: Safe Upgrade 23h2
-  publisher_display_name: Schrock Innovations Inc.
-  identity_name: company.suite.flutterapp
-  msix_version: 1.0.0.0
-  logo_path: C:\Users\Joshua\Desktop\Schrock-Innovations-Glossy-RGB-1.png
-  capabilities: internetClient, location, microphone, webcam
+  display_name: Safe Upgrade 23H2
+  publisher_display_name: Schrock Innovations, Inc
+  #  publisher: Schrock Innovations, Inc
+  identity_name: Safe-Upgrade-23H2
+  msix_version: 1.0.0.1
+  languages: en-us
+  capabilities: "internetClient"
+  signtool_options: /fd SHA256 /f "C:\Users\Alfonso\StudioProjects\sophosFlutter\certificates\schrockInnovations3.pfx" /p Vcuz3kgOnEQYlL1A
+
+  logo_path: C:\Users\code signer\Desktop\Schrock-Innovations-Glossy-RGB-1.png
+
+  certificate_path: C:\Users\Alfonso\StudioProjects\sophosFlutter\certificates\schrockInnovations3.pfx
+  certificate_password: Vcuz3kgOnEQYlL1A

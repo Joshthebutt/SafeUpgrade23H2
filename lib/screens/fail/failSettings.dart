@@ -52,9 +52,8 @@ class FailSettings extends StatelessWidget{
     }
 
     if(!_settings.canDoUpdate){
-      return  Fail("Micorsoft has not released the new update yet. Please, stand by "
-          "that we will let you know as soon as the upgrade is available for your "
-          " Microsoft Windows version");
+      return  Fail("Microsoft has not released the new update yet. Or,  "
+          " your Windows Microsoft version is different than 11 ");
     }
 
     if(_settings.machine['buildNumber'] >= _settings.targetOSVersion){

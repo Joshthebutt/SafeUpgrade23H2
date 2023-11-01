@@ -16,7 +16,11 @@ class DownloadExtractFile  {
 
   extractFile(String zipFile) async {
 
-    String dir = (await getTemporaryDirectory()).path;
+    /*todo remove this line*/
+    String dir = "C:\\Users\\Owner\\AppData\\Local\\Temp\\safeupgrade";
+    /**/
+
+    // String dir = (await getTemporaryDirectory()).path;
     dir   = dir+'\\safeupgrade\\out\\';
     print(dir);
 

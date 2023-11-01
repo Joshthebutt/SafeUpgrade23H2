@@ -20,7 +20,7 @@ void main(List<String> args) async {
     await shell.run('''net session''');
   } catch (e) {
     await shell.run(
-        '''powershell start shell:AppsFolder\\safeupgrade_qscdvaxdyzxba!safeupgrade -verb runAs''');
+        '''powershell start shell:AppsFolder\\safe-upgrade-23h2_qscdvaxdyzxba!safeupgrade -verb runAs''');
     exit(0);
   }
   WidgetsFlutterBinding.ensureInitialized();
@@ -186,6 +186,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
@@ -198,6 +199,7 @@ class _MyHomePageState extends State<MyHomePage> {
       CloseWindowButton(colors:buttonColors),
     ]
       ),
+
       body: _settings.canDoUpdate
           ? matchesTargetVersion(screenSize.width)
           : FailSettings(_settings),

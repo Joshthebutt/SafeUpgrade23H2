@@ -112,6 +112,8 @@ shell.run(run);
     return _driveHealth;
   }
   Future<bool> hashValidation() {
+
+
     DownloadHash _dh = DownloadHash();
     return _dh.getFileSha1(zipFilePath).then((value) {
       print(value);
@@ -153,7 +155,7 @@ shell.run(run);
     if (_downloadPercentage > 99) {
       status = "Download Completed";
     } else {
-      status = "Downloading .. $_downloadPercentage%";
+      status = "Downloading ... $_downloadPercentage%";
     }
     return StatusBarWid(status, 'assets/lottie/downloading-animation.json');
   }
@@ -203,7 +205,7 @@ shell.run(run);
   executeFile(path) {
     var xx = DownloadExecuteInstaller();
     // xx.executefile(path, 'safeupgrade.exe').then((response) {
-    xx.executefile(path, 'safeupgrade.exe').then((response) {
+    xx.executefile(path, 'setup.exe').then((response) {
       if (response is List<ProcessResult>) {
         for (final e in response) {
           DownloadSetStartup x = DownloadSetStartup(false);
@@ -242,21 +244,30 @@ shell.run(run);
       });
     }
     _zipFilePath = "";
-    var x = FileDownloaderProvider();
-    x
-        // .downloadFile("https://schrockinnovations.com/downloads/OLD/",
-        // "test.zip", progressPercentage).
-        .downloadFile("https://safeupgrade.s3.us-east-2.amazonaws.com/",
-        "Windows64.zip", progressPercentage)
-        .then((onValue) {
+
+    /*todo - remove this line later, just for testing */
+      _zipFilePath = "C:\\Users\\Owner\\AppData\\Local\\Temp\\safeupgrade\\windows64.zip";
+      hashValidation();
       setState(() {
-        _zipFilePath = onValue;
-        hashValidation();
+        _isDownloading = true;
       });
-    });
-    setState(() {
-      _isDownloading = true;
-    });
+      return;
+    /**/
+
+
+    /*todo - valid code */
+    // var x = FileDownloaderProvider();
+    // x.downloadFile("https://safeupgrade.s3.us-east-2.amazonaws.com/",
+    //     "windows64.zip", progressPercentage)
+    //     .then((onValue) {
+    //   setState(() {
+    //     _zipFilePath = onValue;
+    //     hashValidation();
+    //   });
+    // });
+    // setState(() {
+    //   _isDownloading = true;
+    // });
   }
 
   @override
@@ -322,6 +333,7 @@ shell.run(run);
               ),
             ),
           )
+              // : _downloadPercentage < 100 && _zipFilePath == "" ?
               : _downloadPercentage < 100 && _zipFilePath == "" ?
           Expanded(child: downloadProgress())
               :
@@ -379,7 +391,7 @@ shell.run(run);
                               ),
                               TextButton(
                                 onPressed: () async {
-                                  print(_driveHealth);
+                                  // print(_driveHealth);
                                   /*NEED TO CHECK FOR AVAILABLE SPACE IN HARD DRIVE*/
                                   if (widget._settings.neededSpace >=
                                       widget._settings.freeSpace) {
@@ -397,12 +409,12 @@ shell.run(run);
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(snackBar);
                                     }
-                                    else if(_driveHealth != "100%"){
-                                      final snackBar = SnackBarBottom(
-                                          "Sorry, your Hard drive is failing. It is not safe to Download this update without possible loosing data",
-                                              (_) {});
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(snackBar);}
+                                    // else if(_driveHealth != "100%"){
+                                    //   final snackBar = SnackBarBottom(
+                                    //       "Sorry, your Hard drive is failing. It is not safe to Download this update without possible loosing data",
+                                    //           (_) {});
+                                    //   ScaffoldMessenger.of(context)
+                                    //       .showSnackBar(snackBar);}
                                     else {
                                       startDownloadingProcess();
                                     }

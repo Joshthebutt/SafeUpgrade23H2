@@ -21,7 +21,7 @@ class Api {
   Future checkAvailability(String os) async {
 
     var response  =  await  http
-        .get(Uri.https(_url, '${_url2}checkingAvailabilitySafeUpgradeTest', { 'version' : os }));
+        .get(Uri.https(_url, '${_url2}checkingAvailabilitySafeUpgrade', { 'version' : os }));
 
     // var respose = {
     //   statusCode: 200,
