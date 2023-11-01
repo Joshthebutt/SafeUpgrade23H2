@@ -29,12 +29,12 @@ class _DeviceCardState extends State<DeviceCard> {
   final diskSpace = DiskSpace();
   late int _totalSpace  = 500;
   late int _freeSpace   = 1;
-  late String _driveHealth = "";
+  // late String _driveHealth = "";
 
   Settings get settings => widget._settings;
   int get freeSpace => _freeSpace;
   int get totalSpace => _totalSpace; // Scan for disks in the system.
-  String get driveHealth => _driveHealth; //scans the health of the drive.
+  // String get driveHealth => _driveHealth; //scans the health of the drive.
 
   @override
   initState() {
@@ -46,7 +46,6 @@ class _DeviceCardState extends State<DeviceCard> {
     return diskSpace.disks; // A list of disks in the system.
   }
   Future<int> getMainDriveAvailableSpace() async {
-    print("getMainDriveAvailableSpace");
     var disks = await scanForDisk();
     for (final disk in disks) {
       if (disk.devicePath == "C:") {
@@ -63,13 +62,13 @@ class _DeviceCardState extends State<DeviceCard> {
     }
     return 1;
   }
-  Future<String> getMainDriveHealth() async {
-    widget._settings.driveHealth = await driveHealthGetter().health(0);
-
-    _driveHealth = await driveHealthGetter().health(0);
-
-    return _driveHealth;
-  }
+  // Future<String> getMainDriveHealth() async {
+  //   widget._settings.driveHealth = await driveHealthGetter().health(0);
+  //
+  //   _driveHealth = await driveHealthGetter().health(0);
+  //
+  //   return _driveHealth;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -124,19 +123,19 @@ class _DeviceCardState extends State<DeviceCard> {
                                     SubTitleWid("Min. available needed : ${settings.neededSpace} GB", Colors.red)
                                         :
                                     SubTitleWid("Min. available needed : ${settings.neededSpace} GB"),
-                                    FutureBuilder(future: getMainDriveHealth(),
-                                      builder:(context, snapshot) {
-                                        Widget healthpresenter = SizedBox(height: 10,width: 10,child: CircularProgressIndicator());
-                                        String health = "";
-                                        if(snapshot.hasData){health = snapshot.data.toString();
-                                        if(health == "100%"){healthpresenter =SubTitleWid("C Drive Health: "+health);
-                                        _driveHealth = health;
-                                        }
-                                        else{healthpresenter =SubTitleWid("C Drive Health: "+health,Colors.red);}
-                                        }
-                                        return healthpresenter;
-                                      },
-                                    )
+                                    // FutureBuilder(future: getMainDriveHealth(),
+                                    //   builder:(context, snapshot) {
+                                    //     Widget healthpresenter = SizedBox(height: 10,width: 10,child: CircularProgressIndicator());
+                                    //     String health = "";
+                                    //     if(snapshot.hasData){health = snapshot.data.toString();
+                                    //     if(health == "100%"){healthpresenter =SubTitleWid("C Drive Health: "+health);
+                                    //     _driveHealth = health;
+                                    //     }
+                                    //     else{healthpresenter =SubTitleWid("C Drive Health: "+health,Colors.red);}
+                                    //     }
+                                    //     return healthpresenter;
+                                    //   },
+                                    // )
                                   ],
                                 ),
                               ),

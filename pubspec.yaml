@@ -26,6 +26,7 @@ dependencies:
   universal_disk_space: ^0.2.3
   msix: ^3.16.4
   windows_single_instance: ^1.0.0
+  dio: ^5.3.3
 
 
 

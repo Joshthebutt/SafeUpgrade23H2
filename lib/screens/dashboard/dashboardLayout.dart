@@ -8,6 +8,7 @@
 
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:process_run/process_run.dart';
 import 'package:safe_upgrade/widgets/hardDriveInfo.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -24,7 +25,7 @@ import '../../screens/device/userCard.dart';
 import '../../widgets/statusBarWid.dart';
 import '../../screens/programs/program.dart';
 
-
+bool clicked = false;
 
 class DashboardLayout extends StatefulWidget {
   Settings _settings;
@@ -100,24 +101,42 @@ class _DashboardLayoutState extends State<DashboardLayout> {
     });
   }
   installFile(String run){
-var shell=Shell();
-shell.run(run);
+    var shell=Shell();
+    shell.run(run);
   }
 
-  Future<String> getMainDriveHealth() async {
-    widget._settings.driveHealth = await driveHealthGetter().health(0);
+  // Future<String> getMainDriveHealth() async {
+  //   widget._settings.driveHealth = await driveHealthGetter().health(0);
+  //
+  //   _driveHealth = await driveHealthGetter().health(0);
+  //
+  //   return _driveHealth;
+  // }
 
-    _driveHealth = await driveHealthGetter().health(0);
 
-    return _driveHealth;
-  }
   Future<bool> hashValidation() {
+    print('starting hashing');
 
+
+    /*todo */
+    // return Future.delayed(const Duration(seconds: 2), ()  {
+    //   setState(() {
+    //     _hashResult = 2;
+    //     extractFile();
+    //   });
+    //   return true;
+    // });
+    /**/
 
     DownloadHash _dh = DownloadHash();
+    print(_dh);
+    print(zipFilePath);
     return _dh.getFileSha1(zipFilePath).then((value) {
       print(value);
+      print("ALFONSO ");
+      print(value.toString());
       if ((value.toString()).toUpperCase() ==
+      // if ((value.toString()).toUpperCase() !=
           (widget._settings.zipHash).toUpperCase()) {
         setState(() {
           _hashResult = 2;
@@ -163,11 +182,11 @@ shell.run(run);
   Widget hashingFile() {
     final String r;
     if (_hashResult == 0) {
-      r = "Validating ...";
+      r = "Validating ... (11 min. aprox.)";
     } else if (_hashResult == 1) {
       r = "Downloaded file is corrupt";
     } else {
-      r = "File validation successful";
+      r = "File validation successful, now extracting file (20 min aprox.)";
     }
     return StatusBarWid(r, 'assets/lottie/making-notes.json');
   }
@@ -190,21 +209,24 @@ shell.run(run);
 
   /*UNZIP FILE*/
   extractFile() async {
+    print('extracting');
     var xx = DownloadExtractFile();
     if (zipFilePath == "") {
       return false;
     }
+    print('Unzipping');
+    print(zipFilePath);
     var result = xx.extractFile(zipFilePath).then((response) {
       executeFile(response);
     });
 
-    print(result);
   }
 
   /*  EXECUTE FILE  */
   executeFile(path) {
     var xx = DownloadExecuteInstaller();
     // xx.executefile(path, 'safeupgrade.exe').then((response) {
+
     xx.executefile(path, 'setup.exe').then((response) {
       if (response is List<ProcessResult>) {
         for (final e in response) {
@@ -232,7 +254,7 @@ shell.run(run);
   }
 
   /* START DOWNLOADING PROCESS */
-  startDownloadingProcess() {
+  startDownloadingProcess() async {
     if (!widget.settings.isReinstalling) {
       Api _api = Api();
       _api
@@ -246,17 +268,34 @@ shell.run(run);
     _zipFilePath = "";
 
     /*todo - remove this line later, just for testing */
-      _zipFilePath = "C:\\Users\\Owner\\AppData\\Local\\Temp\\safeupgrade\\windows64.zip";
-      hashValidation();
-      setState(() {
-        _isDownloading = true;
-      });
-      return;
+
+    //   String dir = Platform.isAndroid
+    //       ? '/sdcard/download'
+    //       : (await getTemporaryDirectory()).path;
+    //   dir   = '$dir\\$safeUpgradeFolder';
+    //   bool directoryExist = await Directory(dir).exists();
+    //   if(!directoryExist){
+    //   Directory(dir).create(recursive: true);
+    //   }
+    // _zipFilePath  = "$dir\\windows64.zip";
+    //
+    //   hashValidation();
+    //   setState(() {
+    //     _isDownloading = true;
+    //   });
+    //   return;
     /**/
 
 
     /*todo - valid code */
-    // var x = FileDownloaderProvider();
+    var x = FileDownloaderProvider();
+    x.downloadFile1(progressPercentage).then((onValue){
+      setState(() {
+        _zipFilePath = onValue;
+        hashValidation();
+      });
+    });
+
     // x.downloadFile("https://safeupgrade.s3.us-east-2.amazonaws.com/",
     //     "windows64.zip", progressPercentage)
     //     .then((onValue) {
@@ -265,9 +304,9 @@ shell.run(run);
     //     hashValidation();
     //   });
     // });
-    // setState(() {
-    //   _isDownloading = true;
-    // });
+    setState(() {
+      _isDownloading = true;
+    });
   }
 
   @override
@@ -358,7 +397,7 @@ shell.run(run);
                   alignment: AlignmentDirectional.bottomEnd,
                   child: Padding(
                     padding: const EdgeInsets.all(5.0),
-                    child: ElevatedButton(
+                    child: (clicked == true)?ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
                         backgroundColor: Colors.blue,
@@ -417,6 +456,9 @@ shell.run(run);
                                     //       .showSnackBar(snackBar);}
                                     else {
                                       startDownloadingProcess();
+                                      setState(() {
+                                        clicked = true;
+                                      });
                                     }
                                   }
 
@@ -430,7 +472,8 @@ shell.run(run);
                             : startDownloadingProcess(),
                       },
                       child: const Text('Start Installation'),
-                    ),
+                    ):
+                    Text("Loading"),
                   )),
             ),
           ]),

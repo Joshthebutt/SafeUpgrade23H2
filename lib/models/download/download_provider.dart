@@ -16,6 +16,9 @@ import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import '../constants.dart';
 
+import 'package:dio/dio.dart';
+
+
 enum DownloadStatus { NotStarted, Started, Downloading, Completed }
 
 // class FileDownloaderProvider with ChangeNotifier {
@@ -139,6 +142,42 @@ class FileDownloaderProvider {
 
   Future<bool> checkDirectoryExist(path) async{
     return await Directory(path).exists();
+  }
+
+
+
+  Future<String> downloadFile1( progressPercentage ) async {
+
+
+    Dio dio = Dio();
+    try {
+
+      String dir = Platform.isAndroid
+          ? '/sdcard/download'
+          : (await getTemporaryDirectory()).path;
+      dir   = '$dir\\$safeUpgradeFolder';
+      bool directoryExist = await Directory(dir).exists();
+      if(!directoryExist){
+        Directory(dir).create(recursive: true);
+      }
+
+      var path = '$dir\\windows64.zip';
+
+      await dio.download('https://safeupgrade.s3.us-east-2.amazonaws.com/windows64.zip',
+          path,
+          onReceiveProgress: (rec, total) {
+            progressPercentage(((rec / total) * 100).round());
+      });
+      return path;
+    } catch (e) {
+      print(e);
+      progressPercentage(0);
+      return "false";
+    }
+    // setState(() {
+    //   downloading = false;
+    //   progressString = "";
+    // });
   }
 
 }

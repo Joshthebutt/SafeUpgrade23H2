@@ -16,13 +16,30 @@ class DownloadExtractFile  {
 
   extractFile(String zipFile) async {
 
-    /*todo remove this line*/
-    String dir = "C:\\Users\\Owner\\AppData\\Local\\Temp\\safeupgrade";
-    /**/
 
-    // String dir = (await getTemporaryDirectory()).path;
-    dir   = dir+'\\safeupgrade\\out\\';
+    String dir = (await getTemporaryDirectory()).path;
+    dir   = '$dir\\safeupgrade\\out\\';
+    bool directoryExist = await Directory(dir).exists();
+    if(!directoryExist){
+      Directory(dir).create(recursive: true);
+    }
+
     print(dir);
+
+
+    extractFileToDisk(zipFile, dir);
+    print("11111");
+    return dir;
+
+// Use an InputFileStream to access the zip file without storing it in memory.
+    final inputStream = InputFileStream(zipFile);
+// Decode the zip from the InputFileStream. The archive will have the contents of the
+// zip, without having stored the data in memory.
+    final archive1 = ZipDecoder().decodeBuffer(inputStream);
+    extractArchiveToDisk(archive1, dir);
+
+    print("11111");
+    return dir;
 
     final bytes = File(zipFile).readAsBytesSync();
 
